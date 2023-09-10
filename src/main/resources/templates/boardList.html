@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.layout {
+		width : 500px;
+		margin: 0 auto;
+		margin-top: 40px;
+	}
+</style>
+</head>
+<body>
+	<div class="layout">
+		<a th:href="@{/board/write}">글 작성</a>
+		<table>
+			<thead>
+				<tr>
+					<th>글 번호</th>
+					<th>글 제목</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="board : ${list}">
+					<td th:text="${board.id}">1</td>
+					<td>
+						<a th:text="${board.title}"
+							th:href="@{/board/view(id=${board.id})}">제목</a>	
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+			<a th:if="${page != nowPage}" th:href="@{/board/list(page=${page-1},
+			searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+			<strong th:if="${page == nowPage}" th:text="${page}" style="color: red;"></strong>
+		</th:block>
+		<form th:action="@{/board/list}" method="get">
+			<input type="text" name="searchKeyword">
+			<button type="submit"> 검색 </button>
+		</form>
+	</div>
+</body>
+</html>

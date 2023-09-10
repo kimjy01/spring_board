@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${board.title}"> 제목 </h1>
+	<p th:text="${board.content}"> 내용 </p>
+	<a th:href="@{${board.filepath}}"> 파일 보기 </a>
+	
+	<a th:href="@{/board/modify/{id}(id=${board.id})}">글 수정</a>
+	<a th:href="@{/board/delete(id=${board.id})}">글 삭제</a>
+</body>
+</html>
