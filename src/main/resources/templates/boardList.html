@@ -9,6 +9,23 @@
 		margin: 0 auto;
 		margin-top: 40px;
 	}
+	.like{
+		width : 100px;
+		height : 30px;
+		display : flex;
+		justify-content : center;
+	}
+	.heart{
+		width : 30px;
+		height : 30px;
+		background-color: #ccc;
+	}
+	.on{
+		background-color: #ff7979;
+	}
+	.off{
+		opacity : 0.8;
+	}
 </style>
 </head>
 <body>
@@ -27,6 +44,9 @@
 					<td>
 						<a th:text="${board.title}"
 							th:href="@{/board/view(id=${board.id})}">제목</a>	
+					</td>
+					<td class="like">
+						<div class="heart" th:text="${board.heart}"></div>
 					</td>
 				</tr>
 			</tbody>
@@ -48,5 +68,13 @@
 		</form>
 		<p>현재 게시물 수는 <span th:text="${list.getTotalElements()}"></span>개 입니다.</p>
 	</div>
+	
+	<script>
+		let indic = document.querySelectorAll('.heart');
+		indic.forEach((el) => {
+			el.classList.add((el.innerHTML === 'true') ? 'on' : 'off');
+			el.innerHTML = ' ';
+		});
+	</script>
 </body>
 </html>

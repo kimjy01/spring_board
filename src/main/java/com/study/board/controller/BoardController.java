@@ -80,7 +80,7 @@ public class BoardController {
 	
 	@GetMapping("/board/view")
 	public String boardView(Model model, Integer id) {
-		
+		boardService.boardViewCount(id);
 		model.addAttribute("board", boardService.boardView(id));
 		
 		return "boardView";
@@ -138,6 +138,14 @@ public class BoardController {
             e.printStackTrace();
             return new ResponseEntity<>(null, org.springframework.http.HttpStatus.NOT_FOUND);
         }
+    }
+    
+    @PostMapping("/board/update-heart/{id}")
+    public String heartUpdate(@PathVariable("id") Integer id, Board board, Model model) {
+    	Board boardTemp = boardService.boardView(id);
+    	boardTemp.setHeart(!boardTemp.getHeart());
+    	boardService.heartSave(boardTemp);
+    	return "redirect:/board/view?id={id}";
     }
 	
 }

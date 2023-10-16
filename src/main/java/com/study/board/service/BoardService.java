@@ -68,4 +68,18 @@ public class BoardService {
 		return boardRepository.findByTitleContaining(searchKeyword, pageable);
 	}
 	
+	public void heartSave(Board board) {
+		boardRepository.save(board);
+	}
+	
+	public void boardViewCount(Integer id) {
+		
+	      Board board = boardRepository.findById(id).orElse(null);
+
+	      if (board != null) {
+	          board.setViewcount(board.getViewcount() + 1);
+	          boardRepository.save(board);
+	     }
+	 }
+	
 }
